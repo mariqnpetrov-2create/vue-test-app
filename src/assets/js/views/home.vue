@@ -1,8 +1,14 @@
 <template>
+	<div class="main">
+		<intro></intro>
 
+
+	</div><!-- /.main -->
 </template>
 
 <script>
+import intro from '../components/intro.vue';
+
 export default {
 
   name: 'home',
@@ -11,6 +17,9 @@ export default {
     return {
 
     }
+  },
+  components: {
+  	intro
   }
 }
 </script>

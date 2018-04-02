@@ -1,10 +1,17 @@
 <template>
 	<div id="root">
+		<pageHeader></pageHeader>
+
 		<router-view></router-view>
+
+		<pageFooter></pageFooter>
 	</div><!-- /#root -->
 </template>
 
 <script>
+import pageHeader from './header.vue';
+import pageFooter from './footer.vue';
+
 export default {
   name: 'app',
 
@@ -12,6 +19,10 @@ export default {
     return {
 
     }
+  },
+  components: {
+  	pageHeader,
+  	pageFooter
   }
 }
 </script>
