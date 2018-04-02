@@ -1,19 +1,25 @@
 // main.js
 import Vue from 'vue';
 import App from './components/app.vue';
-import VueRouter from 'vue-router';
 import BootstrapVue from 'bootstrap-vue';
-import { routes } from './router.js';
+import router from './router';
+import config from './config';
+import firebase from 'firebase';
 
-Vue.use(VueRouter);
+let app;
+
 Vue.use(BootstrapVue);
 
-const router = new VueRouter({
-	routes
-})
-
-new Vue({
-	el: '#app',
-	render: h => h(App),
-	router
+firebase.initializeApp(config);
+firebase.auth().onAuthStateChanged((user) => {
+	if ( !app ) {
+		app = new Vue({
+			el: '#app',
+			render: h => h(App),
+			router
+		});
+	}
+},
+(err) => {
+	alert(err.message);
 });

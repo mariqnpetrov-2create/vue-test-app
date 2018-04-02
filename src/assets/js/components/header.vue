@@ -6,15 +6,23 @@
 			<nav class="navigation">
 				<ul>
 					<li>
-						<a href="#">Home</a>
+						<router-link to="/">Home</router-link>
 					</li>
 
 					<li>
-						<a href="#">About</a>
+						<router-link to="/login">Login</router-link>
 					</li>
 
 					<li>
-						<a href="#">Contact</a>
+						<router-link to="/signup">Sign Up</router-link>
+					</li>
+
+					<li>
+						<a href="#" @click.prevent="signOut">Sign Out</a>
+					</li>
+
+					<li>
+						<router-link to="/store">Store</router-link>
 					</li>
 				</ul>
 			</nav><!-- /.navigation -->
@@ -23,14 +31,25 @@
 </template>
 
 <script>
-export default {
+import firebase from 'firebase';
 
+export default {
   name: 'pageHeader',
 
   data () {
     return {
 
     }
+  },
+  methods: {
+  	signOut() {
+  		firebase.auth().signOut().then(() => {
+  			// Redirect to Login if the current page requires Auth
+  			if ( this.$router.history.current.meta.requiresAuth ) {
+  				this.$router.push('/login');
+  			}
+  		});
+  	}
   }
 }
 </script>

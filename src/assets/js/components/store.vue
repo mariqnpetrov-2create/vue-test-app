@@ -1,25 +1,18 @@
 <template>
 	<div class="main">
-		<intro></intro>
+		This is the store
 	</div><!-- /.main -->
 </template>
 
 <script>
-import intro from '../components/intro.vue';
-import login from '../components/login.vue';
-
 export default {
 
-  name: 'home',
+  name: 'store',
 
   data () {
     return {
 
     }
-  },
-  components: {
-  	intro,
-  	login
   }
 }
 </script>

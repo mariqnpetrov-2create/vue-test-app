@@ -1,6 +1,8 @@
 <template>
 	<div class="intro">
-		<h1>this is the intro</h1>
+		<div class="container">
+			<h1>this is the intro</h1>
+		</div><!-- /.container -->
 	</div><!-- /.intro -->
 </template>
 
