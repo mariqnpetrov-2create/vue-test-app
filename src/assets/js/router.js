@@ -5,7 +5,7 @@ import firebase from 'firebase';
 import Home from './views/home.vue';
 import Login from './components/login.vue';
 import Signup from './components/signup.vue';
-import Store from './components/store.vue';
+import shop from './components/shop.vue';
 
 Vue.use(VueRouter);
 
@@ -27,8 +27,8 @@ const routes = [
 		component: Signup
 	},
 	{
-		path: '/store',
-		component: Store,
+		path: '/shop',
+		component: shop,
 		meta: {
 			requiresAuth: true
 		}
@@ -43,6 +43,7 @@ router.beforeEach((to, from, next) => {
 	const currentUser = firebase.auth().currentUser;
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
+	console.log(!currentUser, requiresAuth);
 	if ( !currentUser && requiresAuth ) {
 		next({
 			path: 'login',

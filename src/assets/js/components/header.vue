@@ -9,20 +9,20 @@
 						<router-link to="/">Home</router-link>
 					</li>
 
-					<li>
+					<li v-if="!isLogged">
 						<router-link to="/login">Login</router-link>
 					</li>
 
-					<li>
+					<li v-if="!isLogged">
 						<router-link to="/signup">Sign Up</router-link>
 					</li>
 
-					<li>
+					<li v-if="isLogged">
 						<a href="#" @click.prevent="signOut">Sign Out</a>
 					</li>
 
 					<li>
-						<router-link to="/store">Store</router-link>
+						<router-link to="/shop">Shop</router-link>
 					</li>
 				</ul>
 			</nav><!-- /.navigation -->
@@ -41,9 +41,16 @@ export default {
 
     }
   },
+  computed: {
+  	isLogged() {
+  		return this.$store.state.isLogged;
+  	}
+  },
   methods: {
   	signOut() {
   		firebase.auth().signOut().then(() => {
+  			this.$store.commit('logout');
+
   			// Redirect to Login if the current page requires Auth
   			if ( this.$router.history.current.meta.requiresAuth ) {
   				this.$router.push('/login');

@@ -4,6 +4,7 @@ import App from './components/app.vue';
 import BootstrapVue from 'bootstrap-vue';
 import router from './router';
 import config from './config';
+import store from './store';
 import firebase from 'firebase';
 
 let app;
@@ -16,8 +17,13 @@ firebase.auth().onAuthStateChanged((user) => {
 		app = new Vue({
 			el: '#app',
 			render: h => h(App),
-			router
+			router,
+			store
 		});
+	}
+
+	if (user) {
+		store.commit('login');
 	}
 },
 (err) => {
