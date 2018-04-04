@@ -26,6 +26,10 @@
 					</li>
 				</ul>
 			</nav><!-- /.navigation -->
+
+			<div class="user" v-if="isLogged">
+				Logged in as {{user.displayName ? user.displayName : user.email}}
+			</div><!-- /.user -->
 		</div><!-- /.container -->
 	</header><!-- /.header -->
 </template>
@@ -44,6 +48,9 @@ export default {
   computed: {
   	isLogged() {
   		return this.$store.state.isLogged;
+  	},
+  	user() {
+  		return this.$store.state.user;
   	}
   },
   methods: {

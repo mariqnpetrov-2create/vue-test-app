@@ -24,15 +24,31 @@ export default {
     }
   },
 
+  mounted() {
+  	const database = firebase.database();
+
+  	console.log(database);
+  },
+
   methods: {
   	signUp() {
-  		firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then((user) => {
-  			console.log(user.email);
-  			alert(`${user.email} created`);
-  		},
-  		(error) => {
-  			alert(error.message);
-  		});
+  		firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+  			.then((user) => {
+	  			this.$store.commit('login', user);
+
+	  			this.$router.push('/');
+
+	  			return user;
+	  		},
+	  		(error) => {
+	  			alert(error.message);
+	  		})
+	  		.then(({email, uid}) => {
+	  			firebase.database().ref('users/' + uid).set({
+	  				email,
+	  				userType: 'user'
+	  			});
+	  		});
   	}
   }
 }

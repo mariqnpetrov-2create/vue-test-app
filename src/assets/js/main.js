@@ -23,7 +23,8 @@ firebase.auth().onAuthStateChanged((user) => {
 	}
 
 	if (user) {
-		store.commit('login');
+		console.log(user);
+		store.commit('login', user);
 	}
 },
 (err) => {

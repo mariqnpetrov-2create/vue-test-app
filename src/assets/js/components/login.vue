@@ -26,7 +26,7 @@ export default {
   		firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) => {
   			const redirect = this.$route.query.redirect;
 
-  			this.$store.commit('login');
+			this.$store.commit('login', user);
 
   			if ( redirect ) {
   				this.$router.push(redirect);
