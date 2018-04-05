@@ -24,11 +24,17 @@
 					<li>
 						<router-link to="/shop">Shop</router-link>
 					</li>
+
+					<li v-if="user.type == 'admin'">
+						<router-link to="/add-assignment">Add Assignment</router-link>
+					</li>
 				</ul>
 			</nav><!-- /.navigation -->
 
 			<div class="user" v-if="isLogged">
 				Logged in as {{user.displayName ? user.displayName : user.email}}
+
+				{{user.type}}
 			</div><!-- /.user -->
 		</div><!-- /.container -->
 	</header><!-- /.header -->
@@ -55,14 +61,12 @@ export default {
   },
   methods: {
   	signOut() {
-  		firebase.auth().signOut().then(() => {
-  			this.$store.commit('logout');
+  		this.$store.dispatch('logout');
 
-  			// Redirect to Login if the current page requires Auth
-  			if ( this.$router.history.current.meta.requiresAuth ) {
-  				this.$router.push('/login');
-  			}
-  		});
+  		// Redirect to Login if the current page requires Auth
+		if ( this.$router.history.current.meta.requiresAuth ) {
+			this.$router.push('/login');
+		}
   	}
   }
 }

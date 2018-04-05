@@ -45,8 +45,7 @@ export default {
 	  		})
 	  		.then(({email, uid}) => {
 	  			firebase.database().ref('users/' + uid).set({
-	  				email,
-	  				userType: 'user'
+	  				type: 'user'
 	  			});
 	  		});
   	}

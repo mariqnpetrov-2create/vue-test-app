@@ -12,6 +12,7 @@ let app;
 Vue.use(BootstrapVue);
 
 firebase.initializeApp(config);
+
 firebase.auth().onAuthStateChanged((user) => {
 	if ( !app ) {
 		app = new Vue({
@@ -23,8 +24,7 @@ firebase.auth().onAuthStateChanged((user) => {
 	}
 
 	if (user) {
-		console.log(user);
-		store.commit('login', user);
+		store.dispatch('login', user);
 	}
 },
 (err) => {
