@@ -16,7 +16,7 @@
 	    			label-for="text">
 
 					<b-form-textarea id="text"
-	                     v-model="form.text"
+	                     v-model="form.description"
 	                     :rows="2"
 	                     :max-rows="6"
 	                     required>
@@ -30,7 +30,7 @@
 					<b-form-input :id="`step${index}`"
                       type="text"
                       v-model="form.steps[index]"
-                      required></b-form-input>
+                      required v-focus></b-form-input>
 	    		</b-form-group>
 
 				<b-form-group>
@@ -38,6 +38,8 @@
     			</b-form-group>
 
 	    		<div class="form-actions">
+	    			<b-button type="reset">Reset</b-button>
+
 	    			<b-button type="submit">Submit</b-button>
 	    		</div><!-- /.form-actions -->
     		</b-form>
@@ -46,14 +48,15 @@
 </template>
 
 <script>
-export default {
+import firebase from 'firebase';
 
+export default {
   name: 'addAssignment',
 
   data () {
     return {
     	form: {
-	    	text: '',
+	    	description: '',
 	    	name: '',
 	    	steps: []
     	}
@@ -61,13 +64,22 @@ export default {
   },
   methods: {
   	onSubmit() {
-  		console.log(this.form);
+  		const {name, description, steps} = this.form;
+
+  		firebase.database().ref('assignments/' + name).set({
+			description,
+			steps
+		});
   	},
   	onReset() {
-
+  		this.form = {
+	    	description: '',
+	    	name: '',
+	    	steps: []
+    	}
   	},
   	addStep() {
-  		this.steps.push('')
+  		this.form.steps.push('');
   	}
   }
 }

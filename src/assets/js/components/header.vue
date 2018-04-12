@@ -22,7 +22,11 @@
 					</li>
 
 					<li>
-						<router-link to="/shop">Shop</router-link>
+						<router-link to="/assignments">All Assignments</router-link>
+					</li>
+
+					<li>
+						<router-link to="/my-assignments">My Assignments</router-link>
 					</li>
 
 					<li v-if="user.type == 'admin'">

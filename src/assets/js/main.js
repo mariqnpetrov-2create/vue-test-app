@@ -30,3 +30,11 @@ firebase.auth().onAuthStateChanged((user) => {
 (err) => {
 	alert(err.message);
 });
+
+Vue.directive('focus', {
+  inserted: function (el, binding, vnode) {
+    Vue.nextTick(function() {
+      el.focus()
+    })
+  }
+})

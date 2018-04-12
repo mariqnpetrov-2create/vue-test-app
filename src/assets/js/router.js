@@ -6,7 +6,10 @@ import Home from './views/home.vue';
 import Login from './components/login.vue';
 import Signup from './components/signup.vue';
 import Shop from './components/shop.vue';
+import Assignments from './components/assignments.vue';
 import AddAssignment from './components/addAssignment.vue';
+import myAssignments from './components/myAssignments.vue';
+import singleAssignment from './components/singleAssignment.vue';
 
 Vue.use(VueRouter);
 
@@ -28,11 +31,25 @@ const routes = [
 		component: Signup
 	},
 	{
-		path: '/shop',
-		component: Shop,
+		path: '/assignments',
+		component: Assignments,
 		meta: {
 			requiresAuth: true
 		}
+	},
+	{
+		path: '/my-assignments',
+		component: myAssignments,
+		meta: {
+			requiresAuth: true
+		},
+		children: [{
+			path: ':name',
+			component: singleAssignment,
+			meta: {
+				requiresAuth: true
+			}
+		}]
 	},
 	{
 		path: '/add-assignment',

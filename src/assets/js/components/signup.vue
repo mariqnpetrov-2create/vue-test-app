@@ -24,12 +24,6 @@ export default {
     }
   },
 
-  mounted() {
-  	const database = firebase.database();
-
-  	console.log(database);
-  },
-
   methods: {
   	signUp() {
   		firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
