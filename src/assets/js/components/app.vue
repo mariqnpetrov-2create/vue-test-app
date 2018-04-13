@@ -2,7 +2,9 @@
 	<div id="root">
 		<pageHeader></pageHeader>
 
-		<router-view></router-view>
+		<div class="main">
+      <router-view></router-view>
+    </div><!-- /.main -->
 
 		<pageFooter></pageFooter>
 	</div><!-- /#root -->
@@ -28,5 +30,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+.main { padding: 50px 0; }
 </style>

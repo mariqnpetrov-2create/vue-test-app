@@ -1,12 +1,14 @@
 <template>
 	<div class="container">
 		<div class="assignments">
-			<div class="assignment" v-for="(data, name, index) in $store.state.assignments" ref="name" :key="index" v-if="isAssigned(name)">
+			<div class="assignment" v-for="(data, name, index) in $store.state.assignments" ref="name" :key="index">
 				<h3>{{name}}</h3>
 
 				<p>{{data.description}}</p>
 
-				<b-button @click="enable(name)">Assign</b-button>
+				<b-button @click="enable(name)" v-if="isAssigned(name)">Assign</b-button>
+
+        <span v-else>Assignment added</span>
 			</div><!-- /.assignment -->
 		</div><!-- /.assignments -->
 	</div><!-- /.container -->
@@ -23,20 +25,21 @@ export default {
     return {
     }
   },
-  computed: {
-
-  },
   methods: {
   	enable(name) {
   		firebase.database().ref('users/' + this.$store.state.user.id + '/assignments').push({
         name,
         step: 0
+      })
+      .then((response) => {
+        this.$store.commit('addUserAssignment', {
+          name,
+          id: response.key
+        });
       });
 
-		  this.$store.commit('addUserAssignment', name);
   	},
   	isAssigned(name) {
-      console.log(!this.$store.state.user.assignments.some(el => el.name == name));
       return !this.$store.state.user.assignments.some(el => el.name == name);
   	}
   }
@@ -44,4 +47,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  .assignment { margin-bottom: 50px; }
 </style>

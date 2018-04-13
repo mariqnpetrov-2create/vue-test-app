@@ -1,16 +1,23 @@
 <template>
-	<div class="container">
-		<ul class="list-assignments" v-if="isMainPage">
-			<li v-for="(assignment, index) in $store.state.user.assignments" :key="index">
-				<h4>{{assignment.name}} <router-link :to="{ path: assignment.name }" append>go</router-link></h4>
-			</li>
-		</ul><!-- /.list-assignments -->
+	<div class="container" v-if="isLogged">
+		<div class="assignments" v-if="isMainPage">
+			<h3 v-if="$store.state.user.assignments.length">Your Assignments:</h3>
+
+			<h3 v-else>You don't have any assignments.</h3>
+
+			<ul class="list-assignments">
+				<li v-for="(assignment, index) in $store.state.user.assignments" :key="index">
+					<h5>{{assignment.name}} - <router-link :to="{ path: assignment.id }" append class="btn btn-secondary">GO</router-link></h5>
+				</li>
+			</ul><!-- /.list-assignments -->
+		</div><!-- /.assignments -->
 
 		<router-view />
 	</div><!-- /.container -->
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
 
   name: 'myAssignments',
@@ -23,7 +30,8 @@ export default {
   computed: {
   	isMainPage() {
   		return this.$store.state.isMainPage;
-  	}
+  	},
+  	...mapGetters(['isLogged'])
   },
   mounted() {
   	if ( !this.$route.params.name ) {
@@ -34,4 +42,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+	.list-assignments li ~ li { margin-top: 10px; }
+	.list-assignments a { text-decoration: none; }
+	.list-assignments h5 { text-transform: capitalize; }
 </style>

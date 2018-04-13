@@ -7,8 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		isLogged: false,
-		user: {},
-		assignments: [],
+		user: null,
+		assignments: null,
 		isMainPage: true
 	},
 	getters: {
@@ -47,9 +47,10 @@ export default new Vuex.Store({
 		getAssignments(state, assignments) {
 			state.assignments = assignments;
 		},
-		addUserAssignment(state, name) {
+		addUserAssignment(state, data) {
 			state.user.assignments.push({
-				name,
+				name: data.name,
+				id: data.id,
 				step: 0
 			});
 		},
@@ -58,6 +59,11 @@ export default new Vuex.Store({
 		},
 		toggleOffMainPage(state) {
 			state.isMainPage = false;
+		},
+		updateStep(state, data) {
+			const target = state.user.assignments.find(el => el.name == data.name);
+
+			target.step = data.stepIndex;
 		}
 	},
 	actions: {

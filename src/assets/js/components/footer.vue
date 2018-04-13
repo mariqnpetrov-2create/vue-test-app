@@ -1,8 +1,10 @@
 <template>
 	<footer class="footer">
-		<div class="container">
-			<p>This is the footer</p>
-		</div><!-- /.container -->
+		<div class="footer-inner">
+			<div class="container">
+				<p>For any feedback contact @mpetrov.</p>
+			</div><!-- /.container -->
+		</div><!-- /.footer-inner -->
 	</footer><!-- /.footer -->
 </template>
 
@@ -20,5 +22,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-	.footer { padding: 60px 0; background: #000; color: #fff; text-align: center; }
+	.footer { position: absolute; bottom: 0; left: 0; display: flex; align-items: center; width: 100%; height: 80px; background: #000; color: #fff; text-align: center; }
+	.footer .footer-inner { width: 100%; }
 </style>

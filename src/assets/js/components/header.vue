@@ -1,46 +1,48 @@
 <template>
 	<header class="header">
-		<div class="container">
-			<a href="#" class="logo"></a>
+		<b-navbar toggleable="md" type="dark" variant="info">
+			<div class="container">
+				<b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-			<nav class="navigation">
-				<ul>
-					<li>
-						<router-link to="/">Home</router-link>
-					</li>
+				<router-link to="/" class="navbar-brand">
+					<img src="https://2create.info/images/logo.png" alt="" width="35" height="35">
+				</router-link>
 
-					<li v-if="!isLogged">
-						<router-link to="/login">Login</router-link>
-					</li>
+				<b-collapse is-nav id="nav_collapse" class="navigation" v-if="user">
+					<b-navbar-nav class="ml-auto">
+						<li class="nav-item" v-if="isLogged">
+							<router-link class="nav-link" to="/assignments">All Assignments</router-link>
+						</li>
 
-					<li v-if="!isLogged">
-						<router-link to="/signup">Sign Up</router-link>
-					</li>
+						<li class="nav-item" v-if="isLogged">
+							<router-link class="nav-link" to="/my-assignments">My Assignments</router-link>
+						</li>
 
-					<li v-if="isLogged">
-						<a href="#" @click.prevent="signOut">Sign Out</a>
-					</li>
+						<li class="nav-item" v-if="user.type == 'admin'">
+							<router-link class="nav-link" to="/add-assignment">Add Assignment</router-link>
+						</li>
 
-					<li>
-						<router-link to="/assignments">All Assignments</router-link>
-					</li>
+						<li class="nav-item" v-if="!isLogged">
+							<router-link class="nav-link" to="/login">Login</router-link>
+						</li>
 
-					<li>
-						<router-link to="/my-assignments">My Assignments</router-link>
-					</li>
+						<li class="nav-item" v-if="!isLogged">
+							<router-link class="nav-link" to="/signup">Sign Up</router-link>
+						</li>
 
-					<li v-if="user.type == 'admin'">
-						<router-link to="/add-assignment">Add Assignment</router-link>
-					</li>
-				</ul>
-			</nav><!-- /.navigation -->
+						<b-nav-item-dropdown text="Profile" v-if="isLogged">
+							<span>Logged in as {{user.displayName ? user.displayName : user.email}}</span>
 
-			<div class="user" v-if="isLogged">
-				Logged in as {{user.displayName ? user.displayName : user.email}}
+							<a href="#" @click.prevent="signOut" class="dropdown-item">Sign Out</a>
+						</b-nav-item-dropdown>
 
-				{{user.type}}
-			</div><!-- /.user -->
-		</div><!-- /.container -->
+						<li class="nav-item" v-if="isLogged">
+							<a href="#" @click.prevent="signOut" class="nav-link">Sign Out</a>
+						</li>
+					</b-navbar-nav>
+				</b-collapse>
+			</div><!-- /.container -->
+		</b-navbar>
 	</header><!-- /.header -->
 </template>
 
@@ -76,6 +78,8 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
+	.header a { text-decoration: none; }
 
+	.navigation .dropdown-menu span { display: block; padding: 4px 24px; }
 </style>

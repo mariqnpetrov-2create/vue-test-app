@@ -44,7 +44,8 @@ const routes = [
 			requiresAuth: true
 		},
 		children: [{
-			path: ':name',
+			// path: ':name',
+			path: ':id',
 			component: singleAssignment,
 			meta: {
 				requiresAuth: true

@@ -1,7 +1,5 @@
 <template>
-	<div class="main">
-		<intro></intro>
-	</div><!-- /.main -->
+	<intro></intro>
 </template>
 
 <script>
@@ -25,4 +23,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
 </style>
