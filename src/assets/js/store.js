@@ -64,6 +64,36 @@ export default new Vuex.Store({
 			const target = state.user.assignments.find(el => el.name == data.name);
 
 			target.step = data.stepIndex;
+		},
+		deleteAssignment(state, id) {
+			const index = state.user.assignments.findIndex(assignment => assignment.id == id);
+
+			state.user.assignments.splice(index, 1);
+
+			firebase.database().ref('users/' + state.user.id + '/assignments/' + id).remove();
+		},
+		updateUser(state, newUserData) {
+			state.user = newUserData;
+
+			const oldUser = firebase.auth().currentUser;
+
+			if ( newUserData.imageFile ) {
+				const path = oldUser.uid + '/profilePicture/' + newUserData.imageFile.name;
+				const storageRef = firebase.storage().ref(path);
+
+				storageRef.put(newUserData.imageFile).then(response => {
+					oldUser.updateProfile({
+						displayName: newUserData.displayName,
+						photoURL: response.downloadURL
+					});
+
+					state.user.photoURL = response.downloadURL;
+				});
+			} else {
+				oldUser.updateProfile({
+					displayName: newUserData.displayName
+				});
+			}
 		}
 	},
 	actions: {

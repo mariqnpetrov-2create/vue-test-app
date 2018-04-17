@@ -8,13 +8,23 @@
 					<img src="https://2create.info/images/logo.png" alt="" width="35" height="35">
 				</router-link>
 
-				<b-collapse is-nav id="nav_collapse" class="navigation" v-if="user">
-					<b-navbar-nav class="ml-auto">
-						<li class="nav-item" v-if="isLogged">
+				<b-collapse is-nav id="nav_collapse" class="navigation">
+					<b-navbar-nav class="ml-auto" v-if="!user">
+						<li class="nav-item">
+							<router-link class="nav-link" to="/login">Login</router-link>
+						</li>
+
+						<li class="nav-item">
+							<router-link class="nav-link" to="/signup">Sign Up</router-link>
+						</li>
+					</b-navbar-nav>
+
+					<b-navbar-nav class="ml-auto" v-if="isLogged">
+						<li class="nav-item">
 							<router-link class="nav-link" to="/assignments">All Assignments</router-link>
 						</li>
 
-						<li class="nav-item" v-if="isLogged">
+						<li class="nav-item">
 							<router-link class="nav-link" to="/my-assignments">My Assignments</router-link>
 						</li>
 
@@ -22,23 +32,15 @@
 							<router-link class="nav-link" to="/add-assignment">Add Assignment</router-link>
 						</li>
 
-						<li class="nav-item" v-if="!isLogged">
-							<router-link class="nav-link" to="/login">Login</router-link>
-						</li>
+						<b-nav-item-dropdown class="profile-dropdown">
+							<template slot="button-content">
+								<img class="avatar" :src="user.photoURL" alt="" v-if="user.photoURL"> {{user.displayName ? user.displayName : user.email}}
+							</template>
 
-						<li class="nav-item" v-if="!isLogged">
-							<router-link class="nav-link" to="/signup">Sign Up</router-link>
-						</li>
-
-						<b-nav-item-dropdown text="Profile" v-if="isLogged">
-							<span>Logged in as {{user.displayName ? user.displayName : user.email}}</span>
+							<router-link class="dropdown-item" to="/profile">Profile</router-link>
 
 							<a href="#" @click.prevent="signOut" class="dropdown-item">Sign Out</a>
 						</b-nav-item-dropdown>
-
-						<li class="nav-item" v-if="isLogged">
-							<a href="#" @click.prevent="signOut" class="nav-link">Sign Out</a>
-						</li>
 					</b-navbar-nav>
 				</b-collapse>
 			</div><!-- /.container -->
@@ -82,4 +84,8 @@ export default {
 	.header a { text-decoration: none; }
 
 	.navigation .dropdown-menu span { display: block; padding: 4px 24px; }
+
+	.avatar { width: auto; height: auto; max-width: 36px; max-height: 36px; margin: -8px 0 -8px -8px; }
+
+	.profile-dropdown { margin-left: 20px; }
 </style>

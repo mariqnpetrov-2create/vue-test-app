@@ -10,6 +10,7 @@ import Assignments from './components/assignments.vue';
 import AddAssignment from './components/addAssignment.vue';
 import myAssignments from './components/myAssignments.vue';
 import singleAssignment from './components/singleAssignment.vue';
+import Profile from './components/profile.vue';
 
 Vue.use(VueRouter);
 
@@ -38,13 +39,19 @@ const routes = [
 		}
 	},
 	{
+		path: '/profile',
+		component: Profile,
+		meta: {
+			requiresAuth: true
+		}
+	},
+	{
 		path: '/my-assignments',
 		component: myAssignments,
 		meta: {
 			requiresAuth: true
 		},
 		children: [{
-			// path: ':name',
 			path: ':id',
 			component: singleAssignment,
 			meta: {

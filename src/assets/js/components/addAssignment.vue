@@ -65,16 +65,16 @@ export default {
   		const {name, description, steps} = this.form;
 
   		firebase.database().ref('assignments/' + name).set({
-			description,
-			steps
-		});
+  			description,
+  			steps
+  		});
 
-		this.$store.state.assignments[name] = {
-			description,
-			steps
-		}
+  		this.$store.state.assignments[name] = {
+  			description,
+  			steps
+  		};
 
-		this.reset();
+  		this.reset();
   	},
   	reset() {
   		this.form = {
