@@ -42,7 +42,7 @@ export default new Vuex.Store({
 		},
 		logout(state) {
 			state.isLogged = false;
-			state.user = {};
+			state.user = null;
 		},
 		getAssignments(state, assignments) {
 			state.assignments = assignments;

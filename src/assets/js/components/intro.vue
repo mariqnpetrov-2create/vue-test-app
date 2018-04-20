@@ -5,7 +5,7 @@
 
 			<h5>1. Go to <router-link to="/assignments">All Assignments</router-link> page and select the one you want to work on.</h5>
 
-			<h5>2. When an assignments has beend selected - it is added to your account and you can start it here - <router-link to="/my-assignments">My Assignments</router-link>.</h5>
+			<h5>2. When an assignments is selected - it is added to your account and you can start it here - <router-link to="/my-assignments">My Assignments</router-link>.</h5>
 
 			<h5>3. Each assignment has only one active task. You need to complete it before moving to the next one!</h5>
 

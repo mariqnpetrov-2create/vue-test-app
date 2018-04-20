@@ -75,6 +75,8 @@ export default {
 		if ( this.$router.history.current.meta.requiresAuth ) {
 			this.$router.push('/login');
 		}
+
+		console.log(this.user);
   	}
   }
 }
